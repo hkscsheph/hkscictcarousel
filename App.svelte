@@ -9,6 +9,7 @@
     text-align: center;
   }
   .slide-content {
+    width: 50vh;
     aspect-ratio: 1/1;
   }
 </style>
