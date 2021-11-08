@@ -9,7 +9,9 @@
     "https://static.wixstatic.com/media/038890_38ef73d9d3f548068d3a235f59a626d0~mv2.jpg/v1/fill/w_789,h_526,al_c,q_85,usm_0.66_1.00_0.01/038890_38ef73d9d3f548068d3a235f59a626d0~mv2.webp"
   ];
   let hue = 4698;
-  let carousel, n;
+  let carousel,
+    n,
+    perPage = 1;
   $: if (carousel) carousel.go(n);
 </script>
 
@@ -20,14 +22,25 @@
   <br>
   <br>
   {#if isShown}
+  @Page: 
+  {#each [1,2,3,4] as i}
+    <input bind:group={perPage} type="radio" value={i} /> {i} 
+  {/each}
+  <br/>
   <input type="range" step="1" min="0" max="3" bind:value={n} />
-  <Carousel perPage="1" bind:this={carousel}>
+  {#each [1,2,3,4] as i}
+  <div 
+    style="height:{i===perPage?"50vh":"0"}; visibility:{i===perPage?"visible":"hidden"}"
+  >
+  <Carousel perPage={i} bind:this={carousel}>
     {#each images as image, i}
     <div class="slide-content">
       <img alt={i} src={image}/>
     </div>
     {/each}
   </Carousel>
+  </div>
+  {/each}
   {:else}
     <div 
       on:click={() => isShown = true}
