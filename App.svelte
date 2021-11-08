@@ -9,10 +9,12 @@
     "https://static.wixstatic.com/media/038890_38ef73d9d3f548068d3a235f59a626d0~mv2.jpg/v1/fill/w_789,h_526,al_c,q_85,usm_0.66_1.00_0.01/038890_38ef73d9d3f548068d3a235f59a626d0~mv2.webp"
   ];
   let hue = 4698;
-  let carousel,
-    n,
+  let carousel = Array(4),
+    n = 0,
     perPage = 1;
-  $: if (carousel) carousel.go(n);
+  $: if (carousel[perPage - 1]) {
+    carousel[perPage - 1].go(n);
+  }
 </script>
 
 <main>
@@ -32,7 +34,7 @@
   <div 
     style="height:{i===perPage?"50vh":"0"}; visibility:{i===perPage?"visible":"hidden"}"
   >
-  <Carousel perPage={i} bind:this={carousel}>
+  <Carousel perPage={i} bind:this={carousel[i - 1]}>
     {#each images as image, i}
     <div class="slide-content">
       <img alt={i} src={image}/>
